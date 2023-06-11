@@ -70,6 +70,7 @@ class CharacterDetailsWindow(tk.Toplevel):
         pass
 
     def remove_campaign(self, campaign_id, character_id):
+        # self.database
         pass
 
     def open_add_campaign_window(self):
@@ -174,7 +175,6 @@ class CharacterDetailsWindow(tk.Toplevel):
             self.edit_labels.append(label_e)
 
             value = ttk.Label(self, text=item.Description)
-            value.grid(row=self.index, column=1, sticky=tk.W)
             self.view_values.append(value)
 
             remove_button = ttk.Button(self, text="Remove", command=self.remove_item(item.Id, self.character_id))
