@@ -1,12 +1,12 @@
 from sqlalchemy import create_engine, Engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from Database.model_definition import Character, CharacterData, CharacterCampaign, Campaign, CharacterItems, \
-    CharacterSpells, Spell, Item
+from database import Campaign, Character, CharacterCampaign, CharacterData, Item, Spell, CharacterSpells, \
+    CharacterItems
 from data.schema_definition import CharacterSchema, CharacterDataSchema, CharacterDetailsSchema
 
 
-DB_PATH = "sqlite:///C:\\Users\ewaja\OneDrive\\University\IV semester\PPY\Character-Manager\Database\DnD_database.db"
+DB_PATH = "sqlite:///C:\\Users\ewaja\OneDrive\\University\IV semester\PPY\Character-Manager\database\DnD_database.db"
 
 
 class Database:
@@ -25,6 +25,9 @@ class Database:
     def get_characters(self):
         characters = self.session.query(Character).all()
         return characters
+
+    def get_campaigns(self):
+        return self.session.query(Campaign).all()
 
     def get_character_details_by_id(self, character_id):
         character = self.session.query(Character).filter_by(Id=character_id).first()

@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey, create_engine
 from sqlalchemy.orm import declarative_base
 
-DB_PATH = "sqlite:///C:\\Users\ewaja\OneDrive\\University\IV semester\PPY\Character-Manager\Database\DnD_database.db"
+DB_PATH = "sqlite:///C:\\Users\ewaja\OneDrive\\University\IV semester\PPY\Character-Manager\database\DnD_database.db"
 
 # Define the models
 Base = declarative_base()
@@ -14,8 +14,6 @@ class Campaign(Base):
     Id = Column(Integer, primary_key=True)
     Name = Column(String(50), nullable=False)
     Description = Column(String(200), nullable=False)
-    Start_date = Column(Date, nullable=False)
-    End_date = Column(Date)
 
 
 class Character(Base):

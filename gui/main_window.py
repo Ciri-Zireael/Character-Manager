@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-import Database
+import database
 from add_character_window import AddCharacterWindow
 from character_details_window import CharacterDetailsWindow
 
@@ -58,4 +58,4 @@ def start_main_window(database):
 
 
 if __name__ == "__main__":
-    start_main_window(Database.Database())
+    start_main_window(database.Database())

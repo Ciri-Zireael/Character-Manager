@@ -3,11 +3,11 @@ from datetime import date
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from Database.model_definition import get_base, Campaign, Character, CharacterCampaign, CharacterData, Spell, \
-    CharacterSpells, CharacterItems, Item
+from database.model_definition import get_base, Campaign, Character, CharacterCampaign, CharacterData, Item, Spell, CharacterSpells, \
+    CharacterItems
 
 engine = create_engine('sqlite:///DnD_database.db')
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine, autoflush=False)
 session = Session()
 
 Base = get_base()
@@ -21,32 +21,27 @@ if session.query(Campaign).count() == 0:
         Campaign(Id=1, Name='The Lost City of Eldoria',
                  Description='Embark on an epic quest to discover the hidden ruins of Eldoria, a mythical city rumored to '
                              'hold ancient treasures and powerful artifacts. Encounter dangerous creatures, '
-                             'solve intricate puzzles, and unravel the secrets of this long-forgotten civilization.',
-                 Start_date=date(2023, 1, 1), End_date=None),
+                             'solve intricate puzzles, and unravel the secrets of this long-forgotten civilization.'),
         Campaign(Id=2, Name='Shadows of the Darkwood',
                  Description='Venture into the mysterious Darkwood, a dense forest shrouded in darkness and home to '
                              'malevolent forces. As brave adventurers, you must confront the ancient evil lurking within, '
                              'battling monstrous creatures, facing ethereal nightmares, and ultimately restoring light to '
-                             'the land.',
-                 Start_date=date(2023, 2, 1), End_date=date(2023, 3, 1)),
+                             'the land.'),
         Campaign(Id=3, Name='Rise of the Dragonlords',
                  Description='A great prophecy foretells the return of mighty dragonlords who will shape the destiny of '
                              'the realm. Join a faction of dragon riders, master the arcane arts, and navigate political '
                              'intrigue as you compete for power, facing fierce dragon battles and making pivotal choices '
-                             'that determine the fate of kingdoms.',
-                 Start_date=date(2023, 3, 1), End_date=None),
+                             'that determine the fate of kingdoms.'),
         Campaign(Id=4, Name='The Cursed Seas',
                  Description='Set sail on a perilous voyage across treacherous waters infested with ghost ships, '
                              'sea monsters, and vengeful spirits. Seek the source of a powerful curse that plagues the '
                              'seas, battling fierce storms, uncovering ancient maritime lore, and ultimately freeing the '
-                             'ocean from its haunted grip.',
-                 Start_date=date(2023, 4, 1), End_date=None),
+                             'ocean from its haunted grip.'),
         Campaign(Id=5, Name='City of Thieves',
                  Description='In the lawless metropolis of Storvale, crime syndicates reign supreme, and corruption runs '
                              'deep. Join a band of renegade outlaws and navigate the criminal underworld, '
                              'planning heists, engaging in intense urban combat, and outsmarting powerful crime lords to '
-                             'become the rulers of the city.',
-                 Start_date=date(2023, 5, 1), End_date=None)
+                             'become the rulers of the city.')
     ]
     session.add_all(campaigns)
 

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from Database.model_definition import Campaign, Item, Spell
+from database.model_definition import Campaign, Item, Spell
 
 
 class OrmBase(BaseModel):
@@ -38,4 +38,6 @@ class CharacterDetailsSchema:
     Spells: list[Spell]
 
 
-# class
+class CampaignSchema:
+    Name: str
+    Description: str
