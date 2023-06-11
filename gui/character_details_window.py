@@ -26,15 +26,12 @@ class CharacterDetailsWindow(tk.Toplevel):
 
         name_value = ttk.Label(self, text=self.character_details.Name)
         self.view_values.append(name_value)
-        name_value_e = ttk.Label(self, text=self.character_details.Name)
-        # self.edit_values.append(name_value_e)
 
         surname_label = ttk.Label(self, text="Surname:")
         self.view_labels.append(surname_label)
 
         surname_value = ttk.Label(self, text=self.character_details.Surname)
         self.view_values.append(surname_value)
-        # surname_value_e = ttk.Label(self, text=self.character_details.Surname)
 
         full_name_label = ttk.Label(self, text=self.character_details.Name+' '+self.character_details.Surname)
         self.edit_labels.append(full_name_label)
@@ -107,9 +104,13 @@ class CharacterDetailsWindow(tk.Toplevel):
             value.grid(row=self.index, column=1, sticky=tk.W)
             self.view_values.append(value)
 
-            entry = ttk.Entry(self, textvariable=item.Description)
-            entry.insert(0, item.Description)
-            self.edit_values.append(entry)
+            remove_button = ttk.Button(self, text="Remove", command=self.remove_item(item.Id, character_id))
+            self.edit_values.append(remove_button)
+
+        add_button = ttk.Button(self, text="Add item", command=self.add_item())
+        self.edit_labels.append(add_button)
+        empty_label = ttk.Label(self, text='')
+        self.edit_values.append(empty_label)
 
         spells_label = ttk.Label(self, text="Spells:")
         self.view_labels.append(spells_label)
@@ -130,9 +131,13 @@ class CharacterDetailsWindow(tk.Toplevel):
             value = ttk.Label(self, text=spell.Description)
             self.view_values.append(value)
 
-            entry = ttk.Entry(self, textvariable=spell.Description)
-            entry.insert(0, spell.Description)
-            self.edit_values.append(entry)
+            remove_button = ttk.Button(self, text="Remove", command=self.remove_spell(spell.Id, character_id))
+            self.edit_values.append(remove_button)
+
+        add_button = ttk.Button(self, text="Add spell", command=self.add_spell())
+        self.edit_labels.append(add_button)
+        empty_label = ttk.Label(self, text='')
+        self.edit_values.append(empty_label)
 
         campaigns_label = ttk.Label(self, text="Campaigns:")
         self.view_labels.append(campaigns_label)
@@ -146,14 +151,15 @@ class CharacterDetailsWindow(tk.Toplevel):
 
         for campaign in self.character_details.Campaigns:
             label = ttk.Label(self, text='    ' + campaign.Name)
-            label_e = ttk.Label(self, text='    ' + campaign.Name)
             self.view_labels.append(label)
+            label_e = ttk.Label(self, text='    ' + campaign.Name)
             self.edit_labels.append(label_e)
 
             details_button = ttk.Button(self, text="See Details", command=lambda c=campaign: show_campaign_details(c))
-            details_button_e = ttk.Button(self, text="See Details", command=lambda c=campaign: show_campaign_details(c))
             self.view_values.append(details_button)
-            self.edit_values.append(details_button_e)
+
+            remove_button = ttk.Button(self, text="Remove", command=self.remove_campaign(campaign.Id, character_id))
+            self.edit_values.append(remove_button)
 
         # Add a button to close the window
         self.edit_button = ttk.Button(self, text="Edit", command=self.change_mode)
@@ -184,9 +190,7 @@ class CharacterDetailsWindow(tk.Toplevel):
         # print()
         # for label, value in zip(self.view_labels, self.view_values):
         #     print(label.cget("text"), value.cget("text"))
-
     def change_mode(self):
-        print("entered edit mode")
         self.edit_mode = not self.edit_mode
 
         if self.edit_mode:
@@ -196,7 +200,7 @@ class CharacterDetailsWindow(tk.Toplevel):
             for label, value in zip(self.edit_labels, self.edit_values):
                 label.grid()
                 value.grid()
-                print(label.cget("text"), value.cget("text"))
+                # print(label.cget("text"), value.cget("text"))
 
         else:
             for label, value in zip(self.edit_labels, self.edit_values):
@@ -205,11 +209,25 @@ class CharacterDetailsWindow(tk.Toplevel):
             for label, value in zip(self.view_labels, self.view_values):
                 label.grid()
                 value.grid()
-                print(label.cget("text"), value.cget("text"))
+                # print(label.cget("text"), value.cget("text"))
 
     def edit(self):
+
         self.change_mode()
 
+    def remove_spell(self, spell_id, character_id):
+        pass
+
+    def add_spell(self):
+        pass
+    def remove_item(self, item_id, character_id):
+        pass
+
+    def add_item(self):
+        pass
+
+    def remove_campaign(self, campaign_id, character_id):
+        pass
 
 def show_campaign_details(campaign):
     # Display a message box with the campaign details

@@ -1,9 +1,11 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey, create_engine
 from sqlalchemy.orm import declarative_base
 
+DB_PATH = "sqlite:///C:\\Users\ewaja\OneDrive\\University\IV semester\PPY\Character-Manager\Database\DnD_database.db"
+
 # Define the models
 Base = declarative_base()
-engine = create_engine("sqlite:///C:\\Users\ewaja\OneDrive\\University\IV semester\PPY\DnD_character_manager\Database\DnD_database.db")
+engine = create_engine(DB_PATH)
 connection = engine.connect()
 
 class Campaign(Base):

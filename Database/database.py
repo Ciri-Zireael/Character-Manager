@@ -6,7 +6,7 @@ from Database.model_definition import Character, CharacterData, CharacterCampaig
 from data.schema_definition import CharacterSchema, CharacterDataSchema, CharacterDetailsSchema
 
 
-# DB = 'sqlite:///DnD_database.db'
+DB_PATH = "sqlite:///C:\\Users\ewaja\OneDrive\\University\IV semester\PPY\Character-Manager\Database\DnD_database.db"
 
 
 class Database:
@@ -15,16 +15,12 @@ class Database:
 
     def __init__(self):
         self.engine = create_engine(
-            "sqlite:///C:\\Users\ewaja\OneDrive\\University\IV semester\PPY\DnD_character_manager\Database\DnD_database.db",
+            DB_PATH,
             connect_args={"check_same_thread": False})
         connection = self.engine.connect()
 
         session_local = sessionmaker(bind=self.engine)
         self.session = session_local()
-
-        # Base = get_base()
-        # # Create the tables based on the defined models
-        # Base.metadata.create_all(self.engine)
 
     def get_characters(self):
         characters = self.session.query(Character).all()
