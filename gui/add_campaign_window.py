@@ -28,8 +28,6 @@ class AddCampaignWindow(tk.Toplevel):
         self.db = db
 
     def add_campaign(self):
-        pass
-
         # self.db.add_character(char, char_data)
         messagebox.showinfo("Success", "Character added successfully!")
         self.parent.refresh()

@@ -26,6 +26,17 @@ class CharacterDataSchema(OrmBase):
     Charisma: int = Field(le=20)
 
 
+class CharacterUpdateSchema(OrmBase):
+    Level: int
+    Proficiency_bonus: int
+    Strength: int
+    Dexterity: int
+    Constitution: int
+    Intelligence: int
+    Wisdom: int
+    Charisma: int = Field(le=20)
+
+
 class CharacterDetailsSchema:
     Name: str
     Surname: str
@@ -38,6 +49,6 @@ class CharacterDetailsSchema:
     Spells: list[Spell]
 
 
-class CampaignSchema:
+class CampaignSchema(OrmBase):
     Name: str
     Description: str

@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 
 import database
-from add_character_window import AddCharacterWindow
-from character_details_window import CharacterDetailsWindow
+from gui.character_details_window import CharacterDetailsWindow
+from gui.add_character_window import AddCharacterWindow
 
 
 class MainWindow(tk.Tk):
