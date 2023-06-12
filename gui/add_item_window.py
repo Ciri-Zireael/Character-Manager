@@ -51,7 +51,6 @@ class AddItemWindow(tk.Toplevel):
         """
         item = ItemSchema(Name=self.entry_name.get(), Description=self.entry_desc.get("1.0", "end-1c"))
         self.db.add_item(item, self.parent.character_id)
-        messagebox.showinfo("Success", "Item added successfully!")
         self.parent.refresh()
         self.destroy()
 

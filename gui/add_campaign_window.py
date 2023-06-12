@@ -52,7 +52,6 @@ class AddCampaignWindow(tk.Toplevel):
         """
         campaign = CampaignSchema(Name=self.entry_name.get(), Description=self.entry_desc.get("1.0", "end-1c"))
         self.db.add_campaign(campaign, self.parent.character_id)
-        messagebox.showinfo("Success", "Campaign added successfully!")
         self.parent.refresh()
         self.destroy()
 
