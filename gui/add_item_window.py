@@ -6,6 +6,19 @@ from data.schema_definition import ItemSchema
 
 
 class AddItemWindow(tk.Toplevel):
+    """
+    A window for adding a new item.
+
+    Args:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+
+    Attributes:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+        entry_name (tk.Entry): The entry widget for entering the item name.
+        entry_desc (tk.Text): The text widget for entering the item description.
+    """
     def __init__(self, parent, db):
         super().__init__(parent)
         self.parent = parent
@@ -29,6 +42,13 @@ class AddItemWindow(tk.Toplevel):
         self.db = db
 
     def add_item(self):
+        """
+        Add the new item.
+
+        Retrieves the item name and description from the entry widgets, creates an ItemSchema object,
+        adds the item to the character in the database, displays a success message, refreshes the parent window,
+        and closes the current window.
+        """
         item = ItemSchema(Name=self.entry_name.get(), Description=self.entry_desc.get("1.0", "end-1c"))
         self.db.add_item(item, self.parent.character_id)
         messagebox.showinfo("Success", "Item added successfully!")

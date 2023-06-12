@@ -8,6 +8,18 @@ import database
 
 
 class AddExistingCampaignWindow(tk.Toplevel):
+    """
+    A window for adding an existing campaign to a character.
+
+    Args:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+
+    Attributes:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+        combobox_campaign (ttk.Combobox): The combobox widget for selecting an existing campaign.
+    """
     def __init__(self, parent, db):
         super().__init__(parent)
         self.parent = parent
@@ -34,6 +46,12 @@ class AddExistingCampaignWindow(tk.Toplevel):
         button.grid(row=2, column=1, sticky="w")
 
     def add_campaign_to_user(self):
+        """
+        Add the selected campaign to the character.
+
+        Retrieves the campaign ID based on the selected campaign name, adds the campaign to the character
+        in the database, displays a success message, refreshes the parent window, and closes the current window.
+        """
         camp_id = self.db.get_campaign_id(self.combobox_campaign.get())
         self.db.add_campaign_to_character(self.parent.character_id, camp_id)
         messagebox.showinfo("Success", "Campaign assigned successfully!")
@@ -41,6 +59,11 @@ class AddExistingCampaignWindow(tk.Toplevel):
         self.destroy()
 
     def open_new_campaign_window(self):
+        """
+        Open the window for adding a new campaign.
+
+        Opens the AddCampaignWindow and closes the current window.
+        """
         new_campaign_window = AddCampaignWindow(self.parent, self.db)
         self.destroy()
 

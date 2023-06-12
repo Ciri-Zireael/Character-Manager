@@ -6,6 +6,21 @@ from data.schema_definition import SpellSchema
 
 
 class AddSpellWindow(tk.Toplevel):
+    """
+    A window for adding a new spell.
+
+    Args:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+
+    Attributes:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+        entry_name (tk.Entry): The entry widget for entering the spell name.
+        entry_level (tk.Entry): The entry widget for entering the spell level.
+        entry_desc (tk.Text): The text widget for entering the spell description.
+    """
+    
     def __init__(self, parent, db):
         super().__init__(parent)
         self.parent = parent
@@ -35,12 +50,20 @@ class AddSpellWindow(tk.Toplevel):
         self.db = db
 
     def add_spell(self):
+        """
+        Add the new spell.
+
+        Retrieves the spell name, level, and description from the entry widgets, creates a SpellSchema object,
+        adds the spell to the character in the database, displays a success message, refreshes the parent window,
+        and closes the current window.
+        """
         spell = SpellSchema(Name=self.entry_name.get(), Description=self.entry_desc.get("1.0", "end-1c"),
                             Level=self.entry_level.get())
         self.db.add_spell(spell, self.parent.character_id)
         messagebox.showinfo("Success", "Spell added successfully!")
         self.parent.refresh()
         self.destroy()
+
 
 if __name__ == "__main__":
     app = tk.Tk()

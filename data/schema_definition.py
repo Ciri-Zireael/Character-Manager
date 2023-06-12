@@ -9,6 +9,9 @@ class OrmBase(BaseModel):
 
 
 class CharacterSchema(OrmBase):
+    """
+        Schema for creating a new character.
+    """
     Name: str = Field(max_length=50)
     Surname: str = Field(max_length=100)
     Level: int = Field(le=20)
@@ -17,6 +20,9 @@ class CharacterSchema(OrmBase):
 
 
 class CharacterDataSchema(OrmBase):
+    """
+        Schema for character data.
+    """
     Proficiency_bonus: int = Field(le=12)
     Strength: int = Field(le=30)
     Dexterity: int = Field(le=30)
@@ -27,6 +33,9 @@ class CharacterDataSchema(OrmBase):
 
 
 class CharacterUpdateSchema(OrmBase):
+    """
+    Schema for updating character.
+    """
     Level: int = Field(le=20)
     Proficiency_bonus: int = Field(le=30)
     Strength: int = Field(le=30)
@@ -38,6 +47,9 @@ class CharacterUpdateSchema(OrmBase):
 
 
 class CharacterDetailsSchema:
+    """
+    Schema for character details.
+    """
     Name: str = Field(max_length=50)
     Surname: str = Field(max_length=100)
     Level: int = Field(le=20)
@@ -50,16 +62,25 @@ class CharacterDetailsSchema:
 
 
 class CampaignSchema(OrmBase):
+    """
+    Schema for creating a new campaign.
+    """
     Name: str = Field(max_length=50)
     Description: str = Field(max_length=200)
 
 
 class ItemSchema(OrmBase):
+    """
+    Schema for creating a new item.
+    """
     Name: str = Field(max_length=50)
     Description: str = Field(max_length=200)
 
 
 class SpellSchema(OrmBase):
+    """
+    Schema for creating a new spell.
+    """
     Name: str = Field(max_length=50)
     Description: str = Field(max_length=200)
     Level: int = Field(le=9)

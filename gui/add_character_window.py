@@ -5,6 +5,30 @@ from data.schema_definition import CharacterSchema, CharacterDataSchema
 
 
 class AddCharacterWindow(tk.Toplevel):
+    """
+    A window for adding a character.
+
+    Args:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+
+    Attributes:
+        parent (tk.Widget): The parent widget.
+        entry_name (tk.Entry): The entry widget for character name.
+        entry_surname (tk.Entry): The entry widget for character surname.
+        entry_level (tk.Entry): The entry widget for character level.
+        entry_class (tk.Entry): The entry widget for character class.
+        entry_race (tk.Entry): The entry widget for character race.
+        entry_prof (tk.Entry): The entry widget for character proficiency bonus.
+        entry_str (tk.Entry): The entry widget for character strength.
+        entry_dex (tk.Entry): The entry widget for character dexterity.
+        entry_con (tk.Entry): The entry widget for character constitution.
+        entry_int (tk.Entry): The entry widget for character intelligence.
+        entry_wis (tk.Entry): The entry widget for character wisdom.
+        entry_char (tk.Entry): The entry widget for character charisma.
+        button_add (tk.Button): The button widget for adding the character.
+        db (database.Database): The database object.
+    """
     def __init__(self, parent, db):
         super().__init__(parent)
         self.parent = parent
@@ -44,6 +68,13 @@ class AddCharacterWindow(tk.Toplevel):
         self.db = db
 
     def add_character(self):
+        """
+        Add a character to the database.
+
+        Creates a CharacterSchema object and a CharacterDataSchema object based on the entered
+        character details, adds them to the database, displays a success message, refreshes the
+        parent window, and closes the current window.
+        """
         char = CharacterSchema(
             Name=self.entry_name.get(),
             Surname=self.entry_surname.get(),

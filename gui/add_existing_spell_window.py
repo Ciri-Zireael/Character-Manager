@@ -6,6 +6,18 @@ from gui.add_spell_window import AddSpellWindow
 
 
 class AddExistingSpellWindow(tk.Toplevel):
+    """
+    A window for adding an existing spell to a character.
+
+    Args:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+
+    Attributes:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+        combobox_spells (ttk.Combobox): The combobox widget for selecting an existing spell.
+    """
     def __init__(self, parent, db):
         super().__init__(parent)
         self.parent = parent
@@ -32,6 +44,12 @@ class AddExistingSpellWindow(tk.Toplevel):
         button.grid(row=2, column=1, sticky="w")
 
     def add_spell_to_character(self):
+        """
+        Add the selected spell to the character.
+
+        Retrieves the spell ID based on the selected spell name, adds the spell to the character
+        in the database, displays a success message, refreshes the parent window, and closes the current window.
+        """
         spell_id = self.db.get_spell_id(self.combobox_spells.get())
         self.db.add_spell_to_character(self.parent.character_id, spell_id)
         messagebox.showinfo("Success", "Spell assigned successfully!")
@@ -39,6 +57,11 @@ class AddExistingSpellWindow(tk.Toplevel):
         self.destroy()
 
     def open_new_spell_window(self):
+        """
+        Open the window for adding a new spell.
+
+        Opens the AddSpellWindow and closes the current window.
+        """
         new_campaign_window = AddSpellWindow(self.parent, self.db)
         self.destroy()
 

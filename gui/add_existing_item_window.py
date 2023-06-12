@@ -6,6 +6,18 @@ from gui.add_item_window import AddItemWindow
 
 
 class AddExistingItemWindow(tk.Toplevel):
+    """
+    A window for adding an existing item to a character.
+
+    Args:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+
+    Attributes:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+        combobox_items (ttk.Combobox): The combobox widget for selecting an existing item.
+    """
     def __init__(self, parent, db):
         super().__init__(parent)
         self.parent = parent
@@ -32,6 +44,12 @@ class AddExistingItemWindow(tk.Toplevel):
         button.grid(row=2, column=1, sticky="w")
 
     def add_item_to_character(self):
+        """
+        Add the selected item to the character.
+
+        Retrieves the item ID based on the selected item name, adds the item to the character
+        in the database, displays a success message, refreshes the parent window, and closes the current window.
+        """
         item_id = self.db.get_item_id(self.combobox_items.get())
         self.db.add_item_to_character(self.parent.character_id, item_id)
         messagebox.showinfo("Success", "Item assigned successfully!")
@@ -39,6 +57,11 @@ class AddExistingItemWindow(tk.Toplevel):
         self.destroy()
 
     def open_new_item_window(self):
+        """
+        Open the window for adding a new item.
+
+        Opens the AddItemWindow and closes the current window.
+        """
         new_campaign_window = AddItemWindow(self.parent, self.db)
         self.destroy()
 

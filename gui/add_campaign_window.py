@@ -6,6 +6,20 @@ from data.schema_definition import CampaignSchema
 
 
 class AddCampaignWindow(tk.Toplevel):
+    """
+    A window for adding a campaign.
+
+    Args:
+        parent (tk.Widget): The parent widget.
+        db (database.Database): The database object.
+
+    Attributes:
+        parent (tk.Widget): The parent widget.
+        entry_name (tk.Entry): The entry widget for campaign name.
+        entry_desc (tk.Text): The text widget for campaign description.
+        button_add (tk.Button): The button widget for adding the campaign.
+        db (database.Database): The database object.
+    """
     def __init__(self, parent, db):
         super().__init__(parent)
         self.parent = parent
@@ -29,11 +43,19 @@ class AddCampaignWindow(tk.Toplevel):
         self.db = db
 
     def add_campaign(self):
+        """
+        Add a campaign to the database.
+
+        Creates a CampaignSchema object based on the entered name and description,
+        adds it to the database, displays a success message, refreshes the parent window,
+        and closes the current window.
+        """
         campaign = CampaignSchema(Name=self.entry_name.get(), Description=self.entry_desc.get("1.0", "end-1c"))
         self.db.add_campaign(campaign, self.parent.character_id)
         messagebox.showinfo("Success", "Campaign added successfully!")
         self.parent.refresh()
         self.destroy()
+
 
 if __name__ == "__main__":
     app = tk.Tk()
