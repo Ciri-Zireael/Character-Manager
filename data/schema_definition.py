@@ -9,40 +9,40 @@ class OrmBase(BaseModel):
 
 
 class CharacterSchema(OrmBase):
-    Name: str = Field(max_length=30)
-    Surname: str
-    Level: int
-    Race: str
-    Class: str
+    Name: str = Field(max_length=50)
+    Surname: str = Field(max_length=100)
+    Level: int = Field(le=20)
+    Race: str = Field(max_length=50)
+    Class: str = Field(max_length=50)
 
 
 class CharacterDataSchema(OrmBase):
-    Proficiency_bonus: int
-    Strength: int
-    Dexterity: int
-    Constitution: int
-    Intelligence: int
-    Wisdom: int
-    Charisma: int = Field(le=20)
+    Proficiency_bonus: int = Field(le=12)
+    Strength: int = Field(le=30)
+    Dexterity: int = Field(le=30)
+    Constitution: int = Field(le=30)
+    Intelligence: int = Field(le=30)
+    Wisdom: int = Field(le=30)
+    Charisma: int = Field(le=30)
 
 
 class CharacterUpdateSchema(OrmBase):
-    Level: int
-    Proficiency_bonus: int
-    Strength: int
-    Dexterity: int
-    Constitution: int
-    Intelligence: int
-    Wisdom: int
-    Charisma: int = Field(le=20)
+    Level: int = Field(le=20)
+    Proficiency_bonus: int = Field(le=30)
+    Strength: int = Field(le=30)
+    Dexterity: int = Field(le=30)
+    Constitution: int = Field(le=30)
+    Intelligence: int = Field(le=30)
+    Wisdom: int = Field(le=30)
+    Charisma: int = Field(le=30)
 
 
 class CharacterDetailsSchema:
-    Name: str
-    Surname: str
-    Level: int
-    Class: str
-    Race: str
+    Name: str = Field(max_length=50)
+    Surname: str = Field(max_length=100)
+    Level: int = Field(le=20)
+    Class: str = Field(max_length=50)
+    Race: str = Field(max_length=50)
     Campaigns: list[Campaign]
     Stats: dict
     Items: list[Item]
@@ -50,16 +50,16 @@ class CharacterDetailsSchema:
 
 
 class CampaignSchema(OrmBase):
-    Name: str
-    Description: str
+    Name: str = Field(max_length=50)
+    Description: str = Field(max_length=200)
 
 
 class ItemSchema(OrmBase):
-    Name: str
-    Description: str
+    Name: str = Field(max_length=50)
+    Description: str = Field(max_length=200)
 
 
 class SpellSchema(OrmBase):
-    Name: str
-    Description: str
-    Level: int
+    Name: str = Field(max_length=50)
+    Description: str = Field(max_length=200)
+    Level: int = Field(le=9)
