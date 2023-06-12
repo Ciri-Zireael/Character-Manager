@@ -30,10 +30,17 @@ class MainWindow(tk.Tk):
         add_button = ttk.Button(self, text="Add Character", command=self.open_add_character_window)
         add_button.pack()
 
+    # def view_character_details(self, event):
+    #     selected_item = self.treeview.focus()
+    #     character_id = self.treeview.item(selected_item)["values"][0]
+    #     character_details_window = CharacterDetailsWindow(self, character_id, self.database)
+
     def view_character_details(self, event):
         selected_item = self.treeview.focus()
-        character_id = self.treeview.item(selected_item)["values"][0]
-        character_details_window = CharacterDetailsWindow(self, character_id, self.database)
+        item_text = self.treeview.item(selected_item)["text"]
+        if "lv." in item_text:
+            character_id = self.treeview.item(selected_item)["values"][0]
+            character_details_window = CharacterDetailsWindow(self, character_id, self.database)
 
     def open_add_character_window(self):
         add_character_window = AddCharacterWindow(self, self.database)

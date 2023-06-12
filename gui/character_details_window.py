@@ -1,3 +1,4 @@
+import functools
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -14,6 +15,7 @@ class CharacterDetailsWindow(tk.Toplevel):
         self.character_details = database.get_character_details_by_id(character_id)
         self.character_id = character_id
         self.database = database
+        self.parent = parent
 
         self.title(f"{self.character_details.Name} {self.character_details.Surname} - Details")
 
@@ -60,20 +62,25 @@ class CharacterDetailsWindow(tk.Toplevel):
         self.refresh()
 
     def remove_spell(self, spell_id, character_id):
-        pass
+        self.database.remove_spell(character_id, spell_id)
+        messagebox.showinfo("Success", "Campaign removed successfully!")
+        self.refresh()
 
     def open_add_spell_window(self):
         new_spell_window = AddExistingSpellWindow(self, self.database)
 
     def remove_item(self, item_id, character_id):
-        pass
+        self.database.remove_item(character_id, item_id)
+        messagebox.showinfo("Success", "Item removed successfully!")
+        self.refresh()
 
     def open_add_item_window(self):
         new_item_window = AddExistingItemWindow(self, self.database)
 
     def remove_campaign(self, campaign_id, character_id):
-        # self.database
-        pass
+        self.database.remove_campaign(character_id, campaign_id)
+        messagebox.showinfo("Success", "Campaign removed successfully!")
+        self.refresh()
 
     def open_add_campaign_window(self):
         new_campaign_widow = AddExistingCampaignWindow(self, self.database)
@@ -179,7 +186,8 @@ class CharacterDetailsWindow(tk.Toplevel):
             value = ttk.Label(self, text=item.Description)
             self.view_values.append(value)
 
-            remove_button = ttk.Button(self, text="Remove", command=self.remove_item(item.Id, self.character_id))
+            remove_button = ttk.Button(self, text="Remove",
+                                       command=functools.partial(self.remove_item, item.Id, self.character_id))
             self.edit_values.append(remove_button)
 
         add_button = ttk.Button(self, text="Add item", command=self.open_add_item_window)
@@ -206,7 +214,8 @@ class CharacterDetailsWindow(tk.Toplevel):
             value = ttk.Label(self, text=spell.Description)
             self.view_values.append(value)
 
-            remove_button = ttk.Button(self, text="Remove", command=self.remove_spell(spell.Id, self.character_id))
+            remove_button = ttk.Button(self, text="Remove",
+                                       command=functools.partial(self.remove_spell, spell.Id, self.character_id))
             self.edit_values.append(remove_button)
 
         add_button = ttk.Button(self, text="Add spell", command=self.open_add_spell_window)
@@ -234,7 +243,7 @@ class CharacterDetailsWindow(tk.Toplevel):
             self.view_values.append(details_button)
 
             remove_button = ttk.Button(self, text="Remove",
-                                       command=self.remove_campaign(campaign.Id, self.character_id))
+                                       command=functools.partial(self.remove_campaign, campaign.Id, self.character_id))
             self.edit_values.append(remove_button)
 
         add_button = ttk.Button(self, text="Add campaign", command=self.open_add_campaign_window)
@@ -248,11 +257,12 @@ class CharacterDetailsWindow(tk.Toplevel):
         self.view_labels.append(edit_button)
         self.edit_labels.append(save_button)
 
-        close_button = ttk.Button(self, text="Close", command=self.destroy)
-        close_button_e = ttk.Button(self, text="Close", command=self.destroy)
-        close_button.grid(column=1, columnspan=1, pady=5)
-        self.view_values.append(close_button)
-        self.edit_values.append(close_button_e)
+        delete_button = ttk.Button(self, text="Delete", command=self.delete_character)
+        delete_button_e = ttk.Button(self, text="Delete", command=self.delete_character)
+        delete_button.grid(column=1, columnspan=1, pady=5)
+        delete_button_e.grid(column=1, columnspan=1, pady=5)
+        self.view_values.append(delete_button)
+        self.edit_values.append(delete_button_e)
 
         # for label, value in zip(self.edit_labels, self.edit_values):
         #     print(label.cget("text"), value.cget("text"))
@@ -267,6 +277,11 @@ class CharacterDetailsWindow(tk.Toplevel):
 
         self.change_mode()
 
+    def delete_character(self):
+        self.database.delete_character(self.character_id)
+        messagebox.showinfo("Success", "Character removed successfully!")
+        self.parent.refresh()
+        self.destroy()
 
 def show_campaign_details(campaign):
     message = f"Campaign Name: {campaign.Name}\n\nDescription: {campaign.Description}"

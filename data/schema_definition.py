@@ -62,3 +62,4 @@ class ItemSchema(OrmBase):
 class SpellSchema(OrmBase):
     Name: str
     Description: str
+    Level: int
