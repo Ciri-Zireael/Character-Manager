@@ -52,3 +52,13 @@ class CharacterDetailsSchema:
 class CampaignSchema(OrmBase):
     Name: str
     Description: str
+
+
+class ItemSchema(OrmBase):
+    Name: str
+    Description: str
+
+
+class SpellSchema(OrmBase):
+    Name: str
+    Description: str

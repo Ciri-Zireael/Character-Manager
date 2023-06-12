@@ -3,6 +3,8 @@ from tkinter import ttk, messagebox
 
 from data.schema_definition import CharacterUpdateSchema
 from gui.add_existing_campaign_window import AddExistingCampaignWindow
+from gui.add_existing_item_window import AddExistingItemWindow
+from gui.add_existing_spell_window import AddExistingSpellWindow
 
 
 class CharacterDetailsWindow(tk.Toplevel):
@@ -60,14 +62,14 @@ class CharacterDetailsWindow(tk.Toplevel):
     def remove_spell(self, spell_id, character_id):
         pass
 
-    def add_spell(self):
-        pass
+    def open_add_spell_window(self):
+        new_spell_window = AddExistingSpellWindow(self, self.database)
 
     def remove_item(self, item_id, character_id):
         pass
 
-    def add_item(self):
-        pass
+    def open_add_item_window(self):
+        new_item_window = AddExistingItemWindow(self, self.database)
 
     def remove_campaign(self, campaign_id, character_id):
         # self.database
@@ -120,7 +122,7 @@ class CharacterDetailsWindow(tk.Toplevel):
         level_value = ttk.Label(self, text=self.character_details.Level)
         self.view_values.append(level_value)
 
-        level_entry = ttk.Entry(self, textvariable=self.character_details.Level)
+        level_entry = ttk.Entry(self)
         level_entry.insert(0, self.character_details.Level)
         self.edit_values.append(level_entry)
 
@@ -180,7 +182,7 @@ class CharacterDetailsWindow(tk.Toplevel):
             remove_button = ttk.Button(self, text="Remove", command=self.remove_item(item.Id, self.character_id))
             self.edit_values.append(remove_button)
 
-        add_button = ttk.Button(self, text="Add item", command=self.add_item())
+        add_button = ttk.Button(self, text="Add item", command=self.open_add_item_window)
         self.edit_labels.append(add_button)
         empty_label = ttk.Label(self, text='')
         self.edit_values.append(empty_label)
@@ -207,7 +209,7 @@ class CharacterDetailsWindow(tk.Toplevel):
             remove_button = ttk.Button(self, text="Remove", command=self.remove_spell(spell.Id, self.character_id))
             self.edit_values.append(remove_button)
 
-        add_button = ttk.Button(self, text="Add spell", command=self.add_spell())
+        add_button = ttk.Button(self, text="Add spell", command=self.open_add_spell_window)
         self.edit_labels.append(add_button)
         empty_label = ttk.Label(self, text='')
         self.edit_values.append(empty_label)

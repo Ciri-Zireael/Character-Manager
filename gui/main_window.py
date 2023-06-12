@@ -33,7 +33,6 @@ class MainWindow(tk.Tk):
     def view_character_details(self, event):
         selected_item = self.treeview.focus()
         character_id = self.treeview.item(selected_item)["values"][0]
-        print(character_id)
         character_details_window = CharacterDetailsWindow(self, character_id, self.database)
 
     def open_add_character_window(self):
